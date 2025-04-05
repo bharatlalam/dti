@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>System Shutdown - Laurus Labs</title>
+  <link rel="stylesheet" href="shutdown.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .shutdown-container {
+      background: #ff4f4f;
+      border-radius: 10px;
+      padding: 40px;
+      text-align: center;
+      width: 400px;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .shutdown-message h2 {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
+    .shutdown-message p {
+      font-size: 1.1rem;
+    }
+
+    .icon {
+      font-size: 3rem;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .back-button {
+      background-color: #ff3b3b;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 30px;
+      text-decoration: none;
+    }
+
+    .back-button:hover {
+      background-color: #e53935;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="shutdown-container">
+    <div class="icon">🚨</div>
+    <h1>System Shutdown</h1>
+    <div class="shutdown-message">
+      <h2>The system has been shut down due to an emergency.</h2>
+      <p>Please restart the system after solving the issue.</p>
+      <p><strong>Safety is our first priority.</strong></p>
+    </div>
+    <a href="index.html" class="back-button">Back to Login</a>
+  </div>
+</body>
+</html>

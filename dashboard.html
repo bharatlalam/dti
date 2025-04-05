@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IRMS Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <div class="header">
+      <div class="company-info">
+        <h1>Laurus Labs</h1>
+        <p>Innovation. Knowledge. Excellence.</p>
+      </div>
+      <div>USER INTERFACE DASHBOARD OF IRMS</div>
+    </div>
+
+    <div class="main-section">
+      <!-- Left Panel with Charts -->
+      <div class="left-panel">
+        <h3>Temperature Trend</h3>
+        <div id="currentTemp" class="metric">Temperature: -- °C</div>
+        <canvas id="tempChart" height="200"></canvas>
+
+        <h3 style="margin-top: 30px;">Pressure Trend</h3>
+        <div id="currentPressure" class="metric">Pressure: -- bar</div>
+        <canvas id="pressureChart" height="200"></canvas>
+      </div>
+
+      <!-- Right Panel with Alerts and Chemical Info -->
+      <div class="right-panel">
+        <div class="alerts-section">
+          <h3>Active Alerts</h3>
+          <div id="alertsContainer"></div>
+        </div>
+
+        <div class="chemical-section">
+          <h3>Chemical Management</h3>
+          <div class="chemical-box">
+            <strong>Current Process:</strong> Acetylation<br>
+            <strong>Next Addition:</strong> Acetic Anhydride @ 14:30<br>
+            <strong>Process Completion:</strong> 60%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Emergency Shutdown Button links to shutdown.html -->
+  <a href="shutdown.html">
+    <button class="emergency-button">
+      Emergency Shutdown
+    </button>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const labels = [];
+    const tempData = [];
+    const pressureData = [];
+
+    const tempChart = new Chart(document.getElementById("tempChart"), {
+      type: "line",
+      data: {
+        labels,
+        datasets: [{
+          label: "Temperature (°C)",
+          data: tempData,
+          borderColor: "#facc15",
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: false }
+        }
+      }
+    });
+
+    const pressureChart = new Chart(document.getElementById("pressureChart"), {
+      type: "line",
+      data: {
+        labels,
+        datasets: [{
+          label: "Pressure (bar)",
+          data: pressureData,
+          borderColor: "#38bdf8",
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: false }
+        }
+      }
+    });
+
+    function updateCharts() {
+      const time = new Date().toLocaleTimeString();
+      const newTemp = +(120 + Math.random() * 2).toFixed(2);
+      const newPressure = +(3.5 + Math.random() * 0.5).toFixed(2);
+
+      if (labels.length > 10) {
+        labels.shift();
+        tempData.shift();
+        pressureData.shift();
+      }
+
+      labels.push(time);
+      tempData.push(newTemp);
+      pressureData.push(newPressure);
+
+      tempChart.update();
+      pressureChart.update();
+
+      document.getElementById('currentTemp').innerText = `Temperature: ${newTemp} °C`;
+      document.getElementById('currentPressure').innerText = `Pressure: ${newPressure} bar`;
+    }
+
+    setInterval(updateCharts, 3000);
+
+    const alerts = [
+      {
+        type: 'warning',
+        message: `<strong>Temperature Rising</strong><br>Rate: 1.2°C/min | Threshold: 85%`
+      },
+      {
+        type: 'success',
+        message: `<strong>Automatic Cooling Activated</strong><br>Temperature exceeded safe limit. Cooling system triggered.`
+      },
+      {
+        type: 'danger',
+        message: `<strong>Pressure Threshold Warning</strong><br>Current: 4.2 bar | Max: 5.0 bar`
+      },
+      {
+        type: 'warning',
+        message: `<strong>Valve Auto-Close Triggered</strong><br>System engaging auto-safety protocol`
+      },
+      {
+        type: 'danger',
+        message: `<strong>Radiation Spike Detected</strong><br>Immediate check required`
+      }
+    ];
+
+    let currentAlert = 0;
+
+    function rotateAlerts() {
+      const container = document.getElementById('alertsContainer');
+      container.innerHTML = '';
+
+      const alert = alerts[currentAlert];
+      const div = document.createElement('div');
+      div.className = `alert-box ${alert.type}`;
+      div.innerHTML = alert.message;
+
+      container.appendChild(div);
+      currentAlert = (currentAlert + 1) % alerts.length;
+    }
+
+    rotateAlerts();
+    setInterval(rotateAlerts, 5000);
+
+    setTimeout(() => {
+      const chemicalSection = document.querySelector(".chemical-section");
+
+      const failureDiv = document.createElement("div");
+      failureDiv.className = "heavy-alert";
+      failureDiv.innerHTML = "🚨 Automated Pressure System Failure Detected!";
+      chemicalSection.appendChild(failureDiv);
+
+      setTimeout(() => {
+        const shutdownDiv = document.createElement("div");
+        shutdownDiv.className = "heavy-alert";
+        shutdownDiv.innerHTML = `🚨 Emergency Shutdown in <span id="countdown">10</span> seconds! 🚨`;
+        chemicalSection.appendChild(shutdownDiv);
+
+        let countdown = 10;
+        const interval = setInterval(() => {
+          countdown--;
+          document.getElementById("countdown").textContent = countdown;
+          if (countdown === 0) {
+            clearInterval(interval);
+            alert("🚨 Automatic Emergency Shutdown Executed! All systems offline.");
+          }
+        }, 1000);
+      }, 5000);
+    }, 20000);
+  </script>
+</body>
+</html>

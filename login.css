@@ -1,0 +1,102 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Background Color for the entire page */
+  body {
+    background-color: #f4f8fc; /* Light blue background for a soft UI look */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header Styles */
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .company-name {
+    color: #5ec9f0; /* Light blue */
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .tagline {
+    font-size: 18px;
+    color: #333;
+  }
+  
+  /* Main Content Layout */
+  .main-content {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center;
+    height: 70vh;  /* Adjusted height for the main section */
+    padding: 20px;
+  }
+  
+  /* Left Side: Company Image */
+  .image-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .company-image {
+    width: 100%;  /* Full width */
+    height: auto;
+    max-width: 500px; /* Maximum size of the image */
+  }
+  
+  /* Right Side: Login Form */
+  .login-section {
+    flex: 1;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* White background for the form */
+  }
+  
+  .login-form input,
+  .login-form button {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+  
+  .login-form input {
+    background-color: #f9f9f9; /* Light gray background for input fields */
+  }
+  
+  .login-form button {
+    background-color: #5ec9f0; /* Blue button color */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-form button:hover {
+    background-color: #3bb1d3; /* Darker blue on hover */
+  }
+  
+  /* Footer Styles */
+  .footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    color: #555;
+  }
+  
